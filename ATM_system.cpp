@@ -8,6 +8,7 @@
 using namespace std;
 int pass;
 string accn;
+
 struct info
 {
     string account_number;
@@ -25,6 +26,7 @@ void view_balance();
 void Pin_change();
 void administrator_add();
 void administrator_delete();
+void show_all_accounts();
 
 int verification()
 {
@@ -194,87 +196,75 @@ int main()
             switch (choice)
             {
             case 1:
+                system("cls");
                 withdraw();
-                cout<<"\nEnter any key and enter to continue: ";
-                cin>>k;
-                if (k)
-                {
-                    system("cls");
-                }
+                cout<<"\nEnter any key and enter to continue....... ";
                 break;
 
             case 2:
+                system("cls");
                 Deposit();
-                cout<<"\nEnter any key and enter to continue: ";
-                cin>>k;
-                if (k)
-                {
-                    system("cls");
-                }
+                cout<<"\nEnter any key and enter to continue....... ";
+                getch();
                 break;
 
             case 3:
+                system("cls");
                 view_balance();
-                cout<<"\nEnter any key and enter to continue: ";
-                cin>>k;
-                if (k)
-                {
-                    system("cls");
-                }
+                cout<<"\nEnter any key and enter to continue....... ";
+                getch();
                 break;
 
             case 4:
+                system("cls");
                 Pin_change();
-                cout<<"\nEnter any key and enter to continue: ";
-                cin>>k;
-                if (k)
-                {
-                    system("cls");
-                }
+                cout<<"\nEnter any key and enter to continue....... ";
+                getch();
                 break;
-
+                
             case 987056:
+                system("cls");
                 int choice2;
                 cout << "Welcome to ATM system as Admin\n";
                 cout << "5. Add account\n";
                 cout << "6. Delete account\n";
-                cout << "7. Exit\n";
+                cout << "7. View all accounts details\n";
+                cout << "8. Exit\n";
                 cout << "Which function would you like to perform: ";
                 cin >> choice2;
                 switch (choice2)
                 {
                 case 5:
+                    system("cls");
                     administrator_add();
-                    cout<<"Enter any key and enter to continue: ";
-                    cin>>k;
-                    if (k= '\n')
-                    {
-                        system("cls");
-                    }
+                    cout<<"\nEnter any key and enter to continue....... ";
+                    getch();
                     break;
 
                 case 6:
+                    system("cls");
                     administrator_delete();
-                    cout<<"Enter any key and enter to continue: ";
-                    cin>>k;
-                    if (k= '\n')
-                    {
-                        system("cls");
-                    }
+                    cout<<"\nEnter any key and enter to continue....... ";
+                    getch();
                     break;
                 case 7:
+                    system("cls");
+                    show_all_accounts();
+                    cout<<"Enter any key and enter to continue.......\n ";
+                    getch();
+                    break;
+                
+                case 8:
                     break;
                 default:
                     break;
                 }
 
+                break;
             case 5:
-                cout<<"Enter any key and enter to continue: ";
-                cin>>k;
-                if (k)
-                {
-                    system("cls");
-                }
+                i=0;
+                cout<<"\nExiting.............";
+                getch();
                 break;
             default:
                 break;
@@ -284,7 +274,9 @@ int main()
         else
         {
             cout << "Invalid verification failed\n";
-            return 0;
+            i=0;
+            cout<<"Exiting.............";
+            getch();
         }
     } while (i);
 }
@@ -314,12 +306,8 @@ void Deposit()
     {
         cout<<"Error opening file\n";
     }
-    
-    // int pin;
-    // cout<<"Enter account Pin to deposit money: ";
-    // cin>>pin;
-    int access = 0;
 
+    int access = 0;
     int deposit;
     cout << "Enter money you want to deposit: ";
     cin >> deposit;
@@ -382,7 +370,7 @@ void withdraw()
         int access = 0;
 
         int withdraw;
-        cout << "\n--------------Rules-------------------\n";
+        cout << "\n--------------WithDraw Rules-------------------\n";
         cout << "You can withdraw 20000 Rs at one time\n";
         cout << "Entered money should be multiple of 500\n\n";
         cout << "Enter money you want to deposit: ";
@@ -446,9 +434,7 @@ void view_balance()
     {
         cout << "Error opening file\n";
     }
-    // int pin;
-    // cout<<"Enter account Pin to view balance: ";
-    // cin>>pin;
+    cout<<"Your Details Section:\n";
 
     while (getline(read, line))
     {
@@ -470,7 +456,6 @@ void view_balance()
     read.close();
 }
 
-
 void Pin_change()
 {
 
@@ -486,6 +471,7 @@ void Pin_change()
     // cin>>pin;
     int access = 0;
     char select;
+    cout<<"Pin Change Section";
     cout << "Do you want to change your pin(y/n): ";
     cin >> select;
     int new_pin;
@@ -538,7 +524,6 @@ void Pin_change()
     }
 }
 
-
 void administrator_add()
 {
     // Administrator can perform two actions delete account add account
@@ -566,13 +551,12 @@ void administrator_delete()
     string line;
     ifstream read("account_data.txt");
     fstream delete_acc("account_data_temp.txt", ios::app);
+
     if (!read.is_open())
     {
         cout << "Error opening file\n";
     }
-    // int pin;
-    // cout<<"Enter account Pin to deposit money: ";
-    // cin>>pin;
+
     int access = 0;
 
     string account_number;
@@ -616,5 +600,25 @@ void administrator_delete()
         remove("account_data_temp.txt");
         cout << "Account couldn't be deleted\n";
     }
+
+}
+
+void show_all_accounts(){
+    string line;
+    ifstream read("account_data.txt");
+    if (!read.is_open())
+    {
+        cout << "Error opening file\n";
+    }
+    info show_all_data;
+
+    cout<<"Accountnumber AccountPin Accountbalance Status\n";
+    while (getline(read, line))
+    {
+        cout<<line;
+        cout<<"\n";
+    }
+    
+    read.close();
 
 }
